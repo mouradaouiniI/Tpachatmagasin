@@ -1,4 +1,4 @@
-/*package com.esprit.examen.services;
+package com.esprit.examen.services;
 
 import static org.junit.Assert.*;
 import java.util.List;
@@ -19,7 +19,7 @@ public class StockServiceImplTest {
 	public void testAddStock() {
 	//	List<Stock> stocks = stockService.retrieveAllStocks();
 	//	int expected=stocks.size();
-		Stock s = new Stock("stock test",10,100);
+		Stock s = new Stock("sdfz",45,87);
 		Stock savedStock= stockService.addStock(s);
 		
 	//	assertEquals(expected+1, stockService.retrieveAllStocks().size());
@@ -49,4 +49,3 @@ public class StockServiceImplTest {
 	}
 
 }
-*/
