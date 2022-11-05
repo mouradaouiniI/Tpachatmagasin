@@ -17,4 +17,6 @@ public interface ICategorieProduitService {
 
 	CategorieProduit retrieveCategorieProduit(Long id);
 
+    Object save(CategorieProduit p1);
+
 }

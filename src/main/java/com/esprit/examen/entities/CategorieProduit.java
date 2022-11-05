@@ -33,9 +33,9 @@ public class CategorieProduit implements Serializable {
 	@JsonIgnore
 	private Set<Produit> produits;
 
-	public CategorieProduit( String codeCategorie, String libelleCategorie) {
+	public CategorieProduit( Long idCategorieProduit,String codeCategorie, String libelleCategorie) {
 		super();
-		
+		this.idCategorieProduit = idCategorieProduit;
 		this.codeCategorie = codeCategorie;
 		this.libelleCategorie = libelleCategorie;
 	}

@@ -43,4 +43,13 @@ public class CategorieProduitServiceImpl implements ICategorieProduitService {
 		return categorieProduit;
 	}
 
+	@Override
+	public Object save(CategorieProduit p1) {
+		categorieProduitRepository.save(p1);
+		return p1;
+	}
+
+	
+	
+
 }
