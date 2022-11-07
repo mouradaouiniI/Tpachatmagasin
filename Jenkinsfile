@@ -24,6 +24,10 @@ pipeline {
                 sh"""mvn package -DskipTests"""
             }
         }
+		stage ('Unit Tests ...') {             
+		steps {                  
+		sh "mvn test"  }
+		}
          stage ('SonarQube') {
             steps {
                 sh """mvn sonar:sonar -Dsonar.login=5c08cac7be58cc94cc5adf34897b038dce3fdcc8"""
