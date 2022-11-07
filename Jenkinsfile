@@ -1,5 +1,13 @@
 pipeline {
     agent any
+    tools
+        {
+            maven 'M2_HOME'
+        }
+        environment
+        {
+        dockerhub = credentials('dockerhub')
+        }
 
     stages {
         stage('Hello') {
@@ -47,6 +55,52 @@ pipeline {
                 echo "Deploying...";
                 sh "mvn deploy";
                 //sh "mvn test -e";
+            }
+        }
+    	stage('Login to Docker Hub') {
+                steps
+                {
+                sh "docker login -u $dockerhub_USR -p $dockerhub_PSW"
+                }
+                post
+                {
+                    success
+                    {
+                        echo 'Docker Hub Login Completed !'
+                    }
+                }
+        }
+stage ('Build Image - Docker'){
+            steps
+            {
+               echo 'Starting build Docker image'
+                sh "docker build -t outayel/springdevopsapp:1.0.SNAPSHOT ."
+            }
+            post
+            {
+                success
+                {
+                    echo 'Image Build success !'
+                }
+            }
+        }
+
+        stage ('Pushing Image - Docker'){
+            steps
+            {
+               echo 'Starting push Docker image'
+                withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'dockerhub_pwd', usernameVariable: 'dockerhub_usr')])
+                {
+                    sh "docker login -u $dockerhub_USR -p $dockerhub_PSW"
+                }
+                sh "docker push outayel/springdevopsapp"
+            }
+            post
+            {
+                success
+                {
+                    echo 'Image Pushed to Docker hub succeeded !'
+                }
             }
         }
     }
