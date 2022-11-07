@@ -31,7 +31,7 @@ pipeline {
         stage('MAVEN [TEST]') {
             steps {
                 echo "Testing...";
-                sh "mvn test -e";
+                sh "mvn test";
                 //sh "mvn test -e";
             }
         }
