@@ -7,7 +7,7 @@ tools {
         stage('Checkout GIT'){
             steps {
                 echo 'Pulling... ';
-                git branch: 'mortadha',
+                git branch: 'master',
                 url : 'https://github.com/mouradaouiniI/Tpachatmagasin.git';
             }
         }
@@ -35,7 +35,7 @@ tools {
                 }
                     }
                 }
-post {
+                  post {
     always {
       junit(
         allowEmptyResults: true,
@@ -43,3 +43,4 @@ post {
       )
     }
             }
+}
