@@ -28,13 +28,7 @@ pipeline {
                 sh "mvn compile -e";
             }
         }
-        stage('MAVEN [TEST]') {
-                    steps {
-                        echo "Testing...";
-                        sh "mvn test -e";
-                        //sh "mvn test -e";
-                    }
-        }
+
         stage('SONARQUBE') {
             steps {
                 echo "Running SONARQUBE...";
