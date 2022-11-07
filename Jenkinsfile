@@ -1,5 +1,11 @@
 pipeline {
     agent any
+	
+
+    environment
+    {
+    dockerhub = credentials('dockerhub')
+    }
 
     stages {
         stage('Git steps') {
@@ -38,5 +44,27 @@ pipeline {
                 sh """mvn deploy"""
             }
         }
+		 stage ('Docker login')
+        {
+            steps
+            {
+				sh "docker login -u $dockerhub_USR -p $dockerhub_PSW"
+            }
+        }
+		stage ('Docker build')
+        {
+            steps
+            {
+                sh "docker build -t bedis/springdevopsapp:1.0.SNAPSHOT ."
+            }
+        }
+		stage ('Docker push')
+        {
+            steps
+            {
+				sh "docker push bedis/springdevopsapp" 
+            }
+        }
+
     }
 }
