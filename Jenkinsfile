@@ -31,6 +31,11 @@ tools {
                         sh """mvn compile"""
                     }
                 }
+ 		 stage('MVN BUILD'){
+                steps{
+                    sh """mvn build -DskipTests"""
+                }
+            }
                 stage('MVN SONARQUBE'){
                     steps{
                   
