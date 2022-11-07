@@ -3,11 +3,15 @@ pipeline {
 tools {
         maven "M2_HOME"
     }
+  /*  environment
+    {
+	dockerhub = credentials('dockerhub')
+    }*/
     stages {
         stage('Checkout GIT'){
             steps {
                 echo 'Pulling... ';
-                git branch: 'master',
+                git branch: 'mortadha',
                 url : 'https://github.com/mouradaouiniI/Tpachatmagasin.git';
             }
         }
@@ -35,12 +39,20 @@ tools {
                 }
                     }
                 }
-                  post {
-    always {
-      junit(
-        allowEmptyResults: true,
-        testResults: '**/test-reports/*.xml'
-      )
-    }
-            }
+	stage ('Unit Tests ...')
+		{
+		    steps
+		    {
+		        echo 'Unit Tests Start ...'
+		        sh "mvn test"
+		    }
+
+		    post
+		    {
+		        success
+		        {
+		            echo 'Unit Tests Complete ...'
+		        }
+		    }
+		}
 }
