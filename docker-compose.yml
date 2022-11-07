@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   mysqldb:
-    image: mysql:5.7
+    image: mysql:8.0.31
     restart: unless-stopped
     env_file: ./.env
     environment:
@@ -15,7 +15,7 @@ services:
   app:
     depends_on:
       - mysqldb
-    build: ./spring-app
+    build: ./
     restart: on-failure
     env_file: ./.env
     ports:
