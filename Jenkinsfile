@@ -42,5 +42,12 @@ pipeline {
                 sh "mvn sonar:sonar -Dsonar.host.url=http://172.10.0.140:9000 -f pom.xml -Dsonar.login=d2a5f43833b4d209a240e4e8ca0259749f837e90";
             }
         }
+        stage('NEXUS DEPLOY') {
+            steps {
+                echo "Deploying...";
+                sh "mvn deploy";
+                //sh "mvn test -e";
+            }
+        }
     }
 }
