@@ -16,11 +16,6 @@ tools {
             }
         }
            
-            stage('Testing maven'){
-                steps {
-                    sh """mvn -version"""
-                }
-            }
             stage('MVN CLEAN'){
                 steps{
                     sh """mvn clean"""
@@ -36,26 +31,7 @@ tools {
                     sh """mvn package -DskipTests"""
                 }
             }
-                stage('MVN SONARQUBE'){
-                    steps{
-                  
-                        sh """mvn sonar:sonar -Dsonar.login=d59f91156b3ad4822323032bc2376feed8b7145b"""
-                  
-                }
-                    }
-stage("BUILD IMAGE TO DOCKER HUB"){
-	steps{
-sh """docker login -u $dockerhub_USR -p $dockerhub_PSW""";
-sh """docker build -t mortadha1222/springdevopsapp:1.0.SNAPSHOT ."""
-sh """docker push mortadha1222/springdevopsapp"""
-}
-}
-/*stage("DOCKER COMPOSE UP"){
-	steps{
-sh """docker-compose -f docker-compose.yml up""";
-}
-}*/
-                    	stage ('Unit Tests ...')
+                                	stage ('Unit Tests ...')
 		{
 		    steps
 		    {
@@ -71,6 +47,26 @@ sh """docker-compose -f docker-compose.yml up""";
 		        }
 		    }
 		}
+                stage('MVN SONARQUBE'){
+                    steps{
+                  
+                        sh """mvn sonar:sonar -Dsonar.login=d59f91156b3ad4822323032bc2376feed8b7145b"""
+                  
+                }
+                    }
+			stage("BUILD IMAGE TO DOCKER HUB"){
+				steps{
+					sh """docker login -u $dockerhub_USR -p $dockerhub_PSW""";
+					sh """docker build -t mortadha1222/springdevopsapp:1.0.SNAPSHOT ."""
+					sh """docker push mortadha1222/springdevopsapp"""
+					}
+					}
+			/*stage("DOCKER COMPOSE UP"){
+					steps{
+						sh """docker-compose -f docker-compose.yml up""";
+						}
+					}*/
+
  stage('Nexus Deploy'){
                 steps{
                     sh """mvn deploy -DskipTests"""
