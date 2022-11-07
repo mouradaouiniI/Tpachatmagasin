@@ -4,10 +4,6 @@ pipeline {
         {
             maven 'M2_HOME'
         }
-        environment
-        {
-        dockerhub = credentials('dockerhub')
-        }
 
     stages {
         stage('Hello') {
