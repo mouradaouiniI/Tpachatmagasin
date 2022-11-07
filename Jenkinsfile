@@ -88,11 +88,6 @@ stage ('Build Image - Docker'){
         stage ('Pushing Image - Docker'){
             steps
             {
-               echo 'Starting push Docker image'
-                withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'dockerhub_pwd', usernameVariable: 'dockerhub_usr')])
-                {
-                    sh "docker login -u $dockerhub_USR -p $dockerhub_PSW"
-                }
                 sh "docker push outayel/springdevopsapp"
             }
             post
