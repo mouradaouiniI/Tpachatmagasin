@@ -39,7 +39,7 @@ tools {
                 stage('MVN SONARQUBE'){
                     steps{
                   
-                        sh """mvn sonar:sonar -Dsonar.login=9a2270a5d1ab1860083fcae5727401dedf2640b5"""
+                        sh """mvn sonar:sonar -Dsonar.login=bd98870eb40a162d3342da7b624f93fa8c021241"""
                   
                 }
                     }
@@ -59,6 +59,11 @@ tools {
 		        }
 		    }
 		}
+ stage('Nexus Deploy'){
+                steps{
+                    sh """mvn deploy"""
+                }
+            }
                 }
 
 }
