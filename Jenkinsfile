@@ -50,11 +50,11 @@ sh """docker build -t mortadha1222/springdevopsapp:1.0.SNAPSHOT ."""
 sh """docker push mortadha1222/springdevopsapp"""
 }
 }
-stage("DOCKER COMPOSE UP"){
+/*stage("DOCKER COMPOSE UP"){
 	steps{
 sh """docker-compose -f docker-compose.yml up""";
 }
-}
+}*/
                     	stage ('Unit Tests ...')
 		{
 		    steps
