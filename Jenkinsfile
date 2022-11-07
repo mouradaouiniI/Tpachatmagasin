@@ -46,7 +46,7 @@ tools {
 stage("BUILD IMAGE TO DOCKER HUB"){
 	steps{
 sh """docker login -u $dockerhub_USR -p $dockerhub_PSW""";
-sh """docker build -t mortadha1222/springdevopsapp:1.0.SNAPSHOT."""
+sh """docker build -t mortadha1222/springdevopsapp:1.0.SNAPSHOT ."""
 sh """docker push mortadha1222/springdevsapp"""
 }
 }
