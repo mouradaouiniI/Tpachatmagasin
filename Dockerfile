@@ -1,4 +1,4 @@
-FROM maven:3.8.2-jdk-8
+FROM maven:3.2.5-jdk-8
 
 WORKDIR /spring-app
 COPY . .
