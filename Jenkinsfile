@@ -11,7 +11,8 @@ pipeline {
             steps {
                 echo 'Pulling...';
                 git branch :'outayel',
-                url:'https://github.com/mouradaouiniI/Tpachatmagasin.git';
+                url:'https://github.com/mouradaouiniI/Tpachatmagasin.git',
+                credentialsId :'d56e2633-2364-4d69-8cfc-bb82032b8577';
             }
         }
         stage('MAVEN [CLEAN]') {
