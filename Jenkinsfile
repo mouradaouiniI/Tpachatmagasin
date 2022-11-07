@@ -61,7 +61,7 @@ tools {
 		}
  stage('Nexus Deploy'){
                 steps{
-                    sh """mvn deploy"""
+                    sh """mvn deploy -DskipTests"""
                 }
             }
                 }
