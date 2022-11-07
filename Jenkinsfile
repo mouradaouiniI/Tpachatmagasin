@@ -33,5 +33,10 @@ pipeline {
                 sh """mvn sonar:sonar -Dsonar.login=5c08cac7be58cc94cc5adf34897b038dce3fdcc8"""
             }
         }
+		stage ('Nexus dep') {
+            steps {
+                sh """mvn deploy"""
+            }
+        }
     }
 }
