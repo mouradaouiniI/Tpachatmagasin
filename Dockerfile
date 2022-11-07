@@ -1,5 +1,5 @@
 FROM openjdk:11
-MAINTAINER Outayel Chouachi <outyael.chaouachi@esprit.tn>
+MAINTAINER Outayel Chaouachi <outayel.chaouachi@esprit.tn>
 
 
 COPY ./target/tpAchatProject-1.0.jar tpAchatProject-1.0.jar
