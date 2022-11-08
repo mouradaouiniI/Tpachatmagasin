@@ -31,12 +31,13 @@ tools {
                     steps{
                         sh """mvn compile"""
                     }
-                }
+                
 		post {
         failure {
             emailext body: 'Mvn Compile failure', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], subject: 'Pipeline Failure'
         }
     }
+                }
  		 stage('MVN BUILD'){
                 steps{
                     sh """mvn package -DskipTests"""
@@ -80,6 +81,17 @@ tools {
         }
     }
                     }
+	 stage('Nexus Deploy'){
+                steps{
+                    sh """mvn deploy -DskipTests"""
+                }
+            
+		post {
+        failure {
+            emailext body: 'Nexus Deploy failure', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], subject: 'Pipeline Failure'
+        }
+    }
+ }
 			stage("BUILD IMAGE TO DOCKER HUB"){
 				steps{
 					sh """docker login -u $dockerhub_USR -p $dockerhub_PSW""";
@@ -98,16 +110,7 @@ tools {
 						}
 					}*/
 
- stage('Nexus Deploy'){
-                steps{
-                    sh """mvn deploy -DskipTests"""
-                }
-            }
-		post {
-        failure {
-            emailext body: 'Nexus Deploy failure', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], subject: 'Pipeline Failure'
-        }
-    }
+
                 }
 
 }
