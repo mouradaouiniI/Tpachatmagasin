@@ -19,8 +19,8 @@
 	</properties>
 	<distributionManagement>
 		<repository>
-			<id>maven-releases</id>
-			<url>http://192.168.1.16:8081/repository/maven-releases/</url>
+			<id>maven-central-repository</id>
+			<url>http://192.168.1.16:8081/repository/maven-central-repository/</url>
 		</repository>
 	</distributionManagement>
 	<dependencies>
