@@ -10,7 +10,7 @@ pipeline {
     stages {
         stage('Project update from gitHub ') {
             steps {
-                echo 'Pulling Project...'
+                echo 'Pulling Project'
                 git branch : 'bedis',
                 url : 'https://github.com/mouradaouiniI/Tpachatmagasin.git'
 				echo 'Done!'
@@ -20,7 +20,7 @@ pipeline {
 		
         stage ('Maven clean') {
             steps {
-            	echo 'Working on Maven clean...'
+            	echo 'Working on Maven clean'
                 sh"""mvn clean"""
 				echo 'Maven Clean Done!'
             }
@@ -28,7 +28,7 @@ pipeline {
 		
         stage ('Maven Compile') {
             steps {
-            	echo 'Compiling project...'
+            	echo 'Compiling project'
                 sh"""mvn compile"""
 				echo 'Compiling Done!'
             }
@@ -36,7 +36,7 @@ pipeline {
 		
         stage ('Maven build') {
             steps {
-            	echo 'Building project...'
+            	echo 'Building project'
                 sh"""mvn package -DskipTests"""
 				echo 'Building Done!'
             }
@@ -45,8 +45,8 @@ pipeline {
 		stage ('Unit Tests') {             
 		steps {
 		    echo 'Running Unit Tests...'              
-			sh "mvn test"  }
-			echo 'Done!'
+			sh "mvn test"  
+			}
 		}
 		
          stage ('SonarQube') {
