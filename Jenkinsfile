@@ -9,11 +9,6 @@ pipeline {
         dockerhub = credentials('dockerhub')
         }
     stages {
-        stage('Hello') {
-            steps {
-                echo 'Hello World'
-            }
-        }
           stage('Git') {
             steps {
                 echo 'Pulling...';
@@ -22,34 +17,38 @@ pipeline {
                 credentialsId :'6cec0632-1f25-4114-b902-59899311bcf9';
             }
         }
-        stage('MAVEN [CLEAN]') {
+        stage('Clean maven') {
             steps {
-                // mvn -Dmaven.test.failure.ignore=true clean package
-                echo "Cleaning...";
+                echo "Cleaning maven";
                 sh "mvn clean -e";
 
             }
         }
-        stage('MAVEN [BUILD]') {
+        stage('Build maven') {
             steps {
-                echo "Building...";
+                echo "Building maven";
                 sh "mvn compile -e";
             }
         }
-        stage('MAVEN [TEST]') {
+        stage('Test maven') {
             steps {
-                echo "Testing...";
+                echo "Testing maven";
                 sh "mvn test";
-                //sh "mvn test -e";
             }
         }
-        stage('SONARQUBE') {
+        stage('Sonar') {
             steps {
                 echo "Running SONARQUBE...";
                 sh "mvn sonar:sonar -Dsonar.host.url=http://192.168.1.16:9000 -f pom.xml -Dsonar.login=06c7e01c1e784e125df73cd89fb01e79b96ddd52";
             }
         }
-        stage('Login to Docker Hub') {
+		stage('Nexus deployment') {
+            steps {
+                echo "Deploying nexus";
+                sh "mvn deploy";
+            }
+        }
+        stage('Docker login') {
                         steps
                         {
                         sh "docker login -u $dockerhub_USR -p $dockerhub_PSW"
@@ -58,11 +57,11 @@ pipeline {
                         {
                             success
                             {
-                                echo 'Docker Hub Login Completed !'
+                                echo 'Logged to docker successfully'
                             }
                         }
                 }
-        stage ('Build Image - Docker'){
+        stage ('Docker image build'){
                     steps
                     {
                        echo 'Starting build Docker image'
@@ -72,12 +71,12 @@ pipeline {
                     {
                         success
                         {
-                            echo 'Image Build success !'
+                            echo 'Docker image built successfully'
                         }
                     }
                 }
 
-                stage ('Pushing Image - Docker'){
+                stage ('Docker image push'){
                     steps
                     {
                         sh "docker push atefboutara/springdevopsapp"
@@ -86,7 +85,7 @@ pipeline {
                     {
                         success
                         {
-                            echo 'Image Pushed to Docker hub succeeded !'
+                            echo 'Docker image pushed successfully'
                         }
                     }
                 }
