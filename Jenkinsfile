@@ -21,16 +21,31 @@ tools {
                     sh """mvn clean"""
                 }
             }
+		post {
+        failure {
+            emailext body: 'Mvn Clean failure', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], subject: 'Pipeline Failure'
+        }
+    }
                 stage('MVN COMPILE'){
                     steps{
                         sh """mvn compile"""
                     }
                 }
+		post {
+        failure {
+            emailext body: 'Mvn Compile failure', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], subject: 'Pipeline Failure'
+        }
+    }
  		 stage('MVN BUILD'){
                 steps{
                     sh """mvn package -DskipTests"""
                 }
             }
+		post {
+        failure {
+            emailext body: 'Mvn Build failure', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], subject: 'Pipeline Failure'
+        }
+    }
                                 	stage ('Unit Tests ...')
 		{
 		    steps
@@ -45,6 +60,11 @@ tools {
 		        {
 		            echo 'Unit Tests Complete ...'
 		        }
+					
+        failure {
+            emailext body: 'Mvn Tests failure', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], subject: 'Pipeline Failure'
+        }
+    
 		    }
 		}
                 stage('MVN SONARQUBE'){
@@ -53,6 +73,11 @@ tools {
                         sh """mvn sonar:sonar -Dsonar.login=ce8010d4fef2b30237f1b82d5961c688e26e1640"""
                   
                 }
+		post {
+        failure {
+            emailext body: 'SonarQube failure', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], subject: 'Pipeline Failure'
+        }
+    }
                     }
 			stage("BUILD IMAGE TO DOCKER HUB"){
 				steps{
@@ -60,6 +85,11 @@ tools {
 					sh """docker build -t mortadha1222/springdevopsapp:1.0.SNAPSHOT ."""
 					sh """docker push mortadha1222/springdevopsapp"""
 					}
+		post {
+        failure {
+            emailext body: 'Mvn Build failure', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], subject: 'Pipeline Failure'
+        }
+    }
 					}
 			/*stage("DOCKER COMPOSE UP"){
 					steps{
@@ -72,6 +102,11 @@ tools {
                     sh """mvn deploy -DskipTests"""
                 }
             }
+		post {
+        failure {
+            emailext body: 'Nexus Deploy failure', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], subject: 'Pipeline Failure'
+        }
+    }
                 }
 
 }
