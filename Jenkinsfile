@@ -43,6 +43,12 @@ pipeline {
                 //sh "mvn test -e";
             }
         }
+        stage('SONARQUBE') {
+            steps {
+                echo "Running SONARQUBE...";
+                sh "mvn sonar:sonar -Dsonar.host.url=http://192.168.1.16:9000 -f pom.xml -Dsonar.login=06c7e01c1e784e125df73cd89fb01e79b96ddd52";
+            }
+        }
         stage('Login to Docker Hub') {
                         steps
                         {
