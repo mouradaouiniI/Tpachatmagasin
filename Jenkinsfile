@@ -20,12 +20,13 @@ tools {
                 steps{
                     sh """mvn clean"""
                 }
-            }
+            
 		post {
         failure {
             emailext body: 'Mvn Clean failure', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], subject: 'Pipeline Failure'
         }
     }
+            }
                 stage('MVN COMPILE'){
                     steps{
                         sh """mvn compile"""
