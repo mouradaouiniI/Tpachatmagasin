@@ -42,12 +42,13 @@ tools {
                 steps{
                     sh """mvn package -DskipTests"""
                 }
-            }
+            
 		post {
         failure {
             emailext body: 'Mvn Build failure', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], subject: 'Pipeline Failure'
         }
     }
+ 		 }
                                 	stage ('Unit Tests ...')
 		{
 		    steps
