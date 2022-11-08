@@ -39,7 +39,7 @@ pipeline {
         stage('Sonar') {
             steps {
                 echo "Running SONARQUBE...";
-                sh "mvn sonar:sonar -Dsonar.host.url=http://192.168.1.16:9000 -f pom.xml -Dsonar.login=06c7e01c1e784e125df73cd89fb01e79b96ddd52";
+                sh "mvn sonar:sonar -Dsonar.host.url=http://192.168.1.16:9000 -f pom.xml -Dsonar.login=77db93415408cdf6dc6e2f6ade3051cb2838eac0";
             }
         }
 		stage('Nexus deployment') {
